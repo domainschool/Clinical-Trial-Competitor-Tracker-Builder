@@ -21,6 +21,13 @@ export const transformTrialData = (study) => {
     status: protocol.statusModule?.overallStatus || 'Unknown',
     completionDate: protocol.statusModule?.primaryCompletionDateStruct?.date || 'N/A',
     lastUpdated: protocol.statusModule?.lastUpdatePostDateStruct?.date || 'N/A',
+    description: protocol.descriptionModule?.detailedDescription || protocol.descriptionModule?.briefSummary || 'No description available.',
+    eligibility: protocol.eligibilityModule?.eligibilityCriteria || 'No criteria specified.',
+    arms: protocol.armsInterventionsModule?.armGroups?.map(arm => ({
+      label: arm.label,
+      description: arm.description,
+      interventions: arm.interventionNames
+    })) || []
   };
 };
 

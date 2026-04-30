@@ -4,10 +4,12 @@ import { useTrials } from './hooks/useTrials';
 import AnalyticsHeader from './components/AnalyticsHeader';
 import TrialTable from './components/TrialTable';
 import DomainKnowledge from './components/DomainKnowledge';
+import TrialDetailModal from './components/TrialDetailModal';
 
 const App = () => {
   const [activeView, setActiveView] = useState('tracker'); // 'tracker' or 'knowledge'
   const [searchInput, setSearchInput] = useState('');
+  const [selectedTrial, setSelectedTrial] = useState(null);
   const { trials, loading, error, indication, updateIndication, refresh } = useTrials();
 
   const handleSearch = (e) => {
@@ -195,10 +197,18 @@ const App = () => {
             </div>
 
             <AnalyticsHeader trials={trials} />
-            <TrialTable trials={trials} />
+            <TrialTable trials={trials} onRowClick={setSelectedTrial} />
           </div>
         )}
       </main>
+
+      {/* Detail Modal */}
+      {selectedTrial && (
+        <TrialDetailModal 
+          trial={selectedTrial} 
+          onClose={() => setSelectedTrial(null)} 
+        />
+      )}
 
       {/* Footer / Status Bar */}
       <footer className="bg-white border-t border-slate-200 px-6 py-3">

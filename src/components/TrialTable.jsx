@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { ChevronUp, ChevronDown, Calendar, ArrowUpDown, ExternalLink } from 'lucide-react';
 
-const TrialTable = ({ trials }) => {
+const TrialTable = ({ trials, onRowClick }) => {
   const [sortConfig, setSortConfig] = useState({ key: 'lastUpdated', direction: 'desc' });
 
   // Sorting Logic
@@ -82,7 +82,11 @@ const TrialTable = ({ trials }) => {
           </thead>
           <tbody className="divide-y divide-slate-100">
             {sortedTrials.map((trial) => (
-              <tr key={trial.id} className="hover:bg-slate-50/80 transition-colors group">
+              <tr 
+                key={trial.id} 
+                onClick={() => onRowClick(trial)}
+                className="hover:bg-blue-50/50 transition-colors group cursor-pointer"
+              >
                 <td className="px-6 py-4">
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold text-blue-600 mb-1">{trial.id}</span>
