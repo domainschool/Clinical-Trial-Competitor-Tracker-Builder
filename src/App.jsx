@@ -5,6 +5,7 @@ import AnalyticsHeader from './components/AnalyticsHeader';
 import TrialTable from './components/TrialTable';
 import DomainKnowledge from './components/DomainKnowledge';
 import TrialDetailModal from './components/TrialDetailModal';
+import AboutPage from './components/AboutPage';
 
 const App = () => {
   const [activeView, setActiveView] = useState('tracker'); // 'tracker' or 'knowledge'
@@ -131,6 +132,17 @@ const App = () => {
                 <BookOpen className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Intelligence Hub</span>
               </button>
+              <button
+                onClick={() => setActiveView('about')}
+                className={`flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-bold uppercase tracking-tight transition-all ${
+                  activeView === 'about'
+                    ? 'bg-slate-100 dark:bg-slate-800/80 text-clinical-blue-600 dark:text-violet-400 shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-clinical-blue-600 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/30'
+                }`}
+              >
+                <Info className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Learning Deck</span>
+              </button>
             </nav>
 
             <span className="h-6 w-[1px] bg-slate-200 dark:bg-slate-800"></span>
@@ -154,7 +166,9 @@ const App = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-[1600px] w-full mx-auto p-6 z-10">
-        {activeView === 'knowledge' ? (
+        {activeView === 'about' ? (
+          <AboutPage />
+        ) : activeView === 'knowledge' ? (
           <DomainKnowledge />
         ) : !indication ? (
           /* Empty State / Landing Page */
